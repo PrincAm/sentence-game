@@ -1,15 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Global, css as coreCss} from '@emotion/core'
-import {cx, css, keyframes} from 'emotion'
+import {cx, css} from 'emotion'
+import {useSpring} from 'react-spring'
 
-import logo from '../assets/logo.svg'
+import Header from './Header'
+import Card from './Card'
+import Form from './Form'
+import Sentence from './Sentence'
+import Instructions from './Instructions'
+
+const FIRST_STEP = 0
+const FINAL_STEP = 5
 
 const globalStyles = coreCss`
-  body {
+html,
+body,
+#root {
     margin: 0;
     padding: 0;
-    min-height: '100vh';
-    max-width: '100vw';
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    user-select: none;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
       'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -17,67 +29,94 @@ const globalStyles = coreCss`
   }
 `
 
-const appClass = cx(
-  'App',
+const cardsClass = cx(
+  'App-cards',
   css`
-    text-align: center;
-  `
-)
-
-const headerClass = cx(
-  'App-header',
-  css`
-    background-color: #282c34;
-    min-height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
   `
 )
 
-const logoSpin = keyframes`
-  from {
-    transform: rotate(0deg);
+const stepsConfig = {
+  0: {
+    id: 'instructions',
+    title: 'Sentence Game'
+  },
+  1: {
+    id: 'who',
+    title: 'Who?'
+  },
+  2: {
+    id: 'what',
+    title: 'What?'
+  },
+  3: {
+    id: 'when',
+    title: 'When?'
+  },
+  4: {
+    id: 'where',
+    title: 'Where?'
+  },
+  5: {
+    id: 'sentence',
+    title: 'Your Sentence!'
   }
-  to {
-    transform: rotate(360deg);
+}
+
+const isOdd = (number) => number % 2 === 1
+
+const App = () => {
+  const [step, setStep] = useState(0)
+  const {transform, opacity} = useSpring({
+    opacity: step % 2, // 1 or 0
+    transform: `perspective(600px) rotateX(${step === FINAL_STEP ? step * 180 * 5 : step * 180}deg)`,
+    config: {mass: 5, tension: step === FINAL_STEP ? 300 : 500, friction: step === FINAL_STEP ? 200 : 80}
+  })
+
+  const handleStepChange = () => {
+    setStep(step + 1)
   }
-`
 
-const logoClass = cx(
-  'App-logo',
-  css`
-    animation: ${logoSpin} infinite 20s linear;
-    height: 40vmin;
-    pointer-events: none;
-  `
-)
-
-const linkClass = cx(
-  'App-link',
-  css`
-    color: #61dafb;
-  `
-)
-
-const App = () => (
-  <>
-    <Global styles={globalStyles} />
-    <div className={appClass}>
-      <header className={headerClass}>
-        <img src={logo} className={logoClass} alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className={linkClass} href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
-  </>
-)
+  const handleStepToStart = () => {
+    setStep(FIRST_STEP)
+  }
+  return (
+    <>
+      <Global styles={globalStyles} />
+      <Header />
+      <div className={cardsClass}>
+        <Card
+          title={!isOdd(step) ? stepsConfig[step].title : null}
+          style={{opacity: opacity.interpolate((o) => 1 - o), transform, zIndex: !isOdd(step) ? 1 : 0}}>
+          {!isOdd(step) &&
+            (step === FIRST_STEP ? (
+              <Instructions onButtonClick={handleStepChange} />
+            ) : (
+              <Form onButtonClick={handleStepChange} question={stepsConfig[step]} />
+            ))}
+        </Card>
+        <Card
+          title={isOdd(step) ? stepsConfig[step].title : null}
+          style={{
+            opacity,
+            transform: transform.interpolate((t) => `${t} rotateX(180deg)`),
+            zIndex: isOdd(step) ? 1 : 0
+          }}>
+          {isOdd(step) &&
+            (step === FINAL_STEP ? (
+              <Sentence onButtonClick={handleStepToStart} />
+            ) : (
+              <Form onButtonClick={handleStepChange} question={stepsConfig[step]} />
+            ))}
+        </Card>
+      </div>
+    </>
+  )
+}
 
 export default App

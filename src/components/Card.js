@@ -49,7 +49,7 @@ Card.propTypes = {
 
 Card.defaultProps = {
   title: '',
-  gradient: '#c0392b;',
+  gradient: '#c0392b',
   animationStyle: {},
   children: ''
 }

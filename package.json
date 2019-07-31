@@ -14,9 +14,12 @@
     "react-scripts": "3.0.1",
     "react-spring": "^8.0.27",
     "redux": "^4.0.4",
+    "waait": "^1.0.5",
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",

@@ -1,9 +1,16 @@
 # Sentence Game
 
-This project contains static UI content (html, js, images etc).
-Using ES6, React and Redux.
-
 Live demo https://sentencegame.netlify.com
+
+This project contains static UI content (html, js, images etc).
+
+Using ES6, **React**
+
+- **Redux** for state management
+- **Emotion** for styling
+- **Jest** and **Enzyme** for testing
+- **react-spring** for animations
+- **Formik** for building forms
 
 ## Local Development
 

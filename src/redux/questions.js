@@ -4,7 +4,7 @@ import {WHO, WHAT, WHEN, WHERE} from '../config'
 
 export const SAVE_QUESTION = 'questions/SAVE_QUESTION'
 
-// action creator
+// action creators
 export const saveQuestion = (question) => ({type: SAVE_QUESTION, question})
 
 const initialState = {}

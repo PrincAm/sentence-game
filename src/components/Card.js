@@ -12,7 +12,7 @@ const Card = ({title, gradient, animationStyle, children}) => {
       box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
       position: absolute;
       width: 600px;
-      height: 240px;
+      height: 260px;
       will-change: transform, opacity;
       border-radius: 5px;
       padding: 30px 30px 40px 30px;

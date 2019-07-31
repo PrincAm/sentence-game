@@ -1,8 +1,8 @@
-import get from 'lodash/fp/get'
+import get from 'lodash/get'
 
 import {WHO, WHAT, WHEN, WHERE} from '../config'
 
-const SAVE_QUESTION = 'questions/SAVE_QUESTION'
+export const SAVE_QUESTION = 'questions/SAVE_QUESTION'
 
 // action creator
 export const saveQuestion = (question) => ({type: SAVE_QUESTION, question})
@@ -26,9 +26,9 @@ export default reducer
 
 // selectors
 export const sentenceSelector = (state) => {
-  const who = get(['questions', WHO], state)
-  const what = get(['questions', WHAT], state)
-  const where = get(['questions', WHERE], state)
-  const when = get(['questions', WHEN], state)
-  return `${who} ${what} ${where} ${when}`
+  const who = get(state, ['questions', WHO])
+  const what = get(state, ['questions', WHAT])
+  const where = get(state, ['questions', WHERE])
+  const when = get(state, ['questions', WHEN])
+  return `${who} ${what} ${where} ${when}.`
 }

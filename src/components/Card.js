@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {css, cx} from 'emotion'
 import {animated} from 'react-spring'
 
-const Card = ({title, gradient, style, children}) => {
+const Card = ({title, gradient, animationStyle, children}) => {
   const cardClass = cx(
     'Card',
     css`
@@ -19,11 +19,15 @@ const Card = ({title, gradient, style, children}) => {
       display: flex;
       flex-direction: column;
       align-items: center;
+      @media (max-width: 700px) {
+        width: 100%;
+        padding: 20px 10px;
+      }
     `
   )
 
   return (
-    <animated.div style={style} className={cardClass}>
+    <animated.div style={animationStyle} className={cardClass}>
       <h1>{title}</h1>
       {children}
     </animated.div>
@@ -35,11 +39,17 @@ export default Card
 Card.propTypes = {
   title: PropTypes.string,
   gradient: PropTypes.string,
+  animationStyle: PropTypes.shape({
+    opacity: PropTypes.object,
+    transform: PropTypes.object,
+    zIndex: PropTypes.number
+  }),
   children: PropTypes.node
 }
 
 Card.defaultProps = {
   title: '',
-  children: '',
-  gradient: '#c0392b;'
+  gradient: '#c0392b;',
+  animationStyle: {},
+  children: ''
 }

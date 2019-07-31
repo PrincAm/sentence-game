@@ -34,6 +34,9 @@ const inputStyle = css`
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(255, 255, 255, 0.1);
     outline: none;
   }
+  @media (max-width: 700px) {
+    width: 100%;
+  }
 `
 
 const inputClass = cx(
@@ -64,22 +67,24 @@ const buttonClass = cx(
   'Form-button',
   css`
     font-family: inherit;
-    border: none;
+    font-size: 18px;
     color: #f5f5f5;
+    border: none;
+    border-radius: 3px;
     background: rgba(220, 220, 235, 0.5);
     filter: brightness(0.8);
     padding: 7px;
-    font-size: 18px;
-    border-radius: 3px;
     transition: 400ms;
-    width: 180px;
     margin-top: 20px;
+    width: 100px;
     &:hover {
       cursor: pointer;
       filter: brightness(1);
     }
     &:focus {
       transition: none;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(255, 255, 255, 0.2);
+      outline: none;
     }
   `
 )
@@ -117,13 +122,15 @@ const Form = ({onButtonClick, onSaveValue, question}) => {
               value={values[question.id]}
               onChange={handleChange}
               className={errors[question.id] && touched[question.id] ? inputErrorClass : inputClass}
+              /* eslint-disable-next-line jsx-a11y/no-autofocus */
+              autoFocus
             />
             {errors[question.id] && touched[question.id] && (
               <div className={errorMessageClass}>{errors[question.id]}</div>
             )}
           </div>
           <button type="submit" className={buttonClass}>
-            Next Question
+            Next
           </button>
         </form>
       )}

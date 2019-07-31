@@ -29,13 +29,13 @@ const buttonClass = cx(
   'Sentence-button',
   css`
     font-family: inherit;
-    border: none;
     color: #f5f5f5;
+    font-size: 18px;
+    border: none;
+    border-radius: 3px;
     background: rgba(220, 220, 235, 0.5);
     filter: brightness(0.8);
     padding: 7px;
-    font-size: 18px;
-    border-radius: 3px;
     transition: 400ms;
     width: 100px;
     margin-top: 20px;
@@ -45,6 +45,8 @@ const buttonClass = cx(
     }
     &:focus {
       transition: none;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(255, 255, 255, 0.2);
+      outline: none;
     }
   `
 )

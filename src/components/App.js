@@ -14,9 +14,9 @@ import {steps, FIRST_STEP, FINAL_STEP} from '../config'
 const FINAL_STEP_BOOST = 5
 
 const globalStyles = coreCss`
-html,
-body,
-#root {
+  html,
+  body,
+  #root {
     font-family: 'Amatic SC', cursive;
     margin: 0;
     padding: 0;
@@ -44,19 +44,21 @@ const cardsClass = cx(
 const isOdd = (number) => number % 2 === 1
 
 const App = () => {
-  const [step, setStep] = useState(0)
+  const [stepNumber, setStepNumber] = useState(0)
   const {transform, opacity} = useSpring({
-    opacity: step % 2, // 1 or 0
-    transform: `perspective(600px) rotateX(${step === FINAL_STEP ? step * 180 * FINAL_STEP_BOOST : step * 180}deg)`,
-    config: {mass: 5, tension: step === FINAL_STEP ? 400 : 500, friction: step === FINAL_STEP ? 180 : 80}
+    opacity: stepNumber % 2, // 1 or 0
+    transform: `perspective(600px) rotateX(${
+      stepNumber === FINAL_STEP ? stepNumber * 180 * FINAL_STEP_BOOST : stepNumber * 180
+    }deg)`,
+    config: {mass: 5, tension: stepNumber === FINAL_STEP ? 400 : 500, friction: stepNumber === FINAL_STEP ? 180 : 80}
   })
 
   const handleStepChange = () => {
-    setStep(step + 1)
+    setStepNumber(stepNumber + 1)
   }
 
   const handleStepToStart = () => {
-    setStep(FIRST_STEP)
+    setStepNumber(FIRST_STEP)
   }
 
   return (
@@ -64,30 +66,32 @@ const App = () => {
       <Global styles={globalStyles} />
       <Header />
       <div className={cardsClass}>
+        {/* Even steps */}
         <Card
-          title={!isOdd(step) ? steps[step].title : null}
-          style={{opacity: opacity.interpolate((o) => 1 - o), transform, zIndex: !isOdd(step) ? 1 : 0}}
-          gradient={steps[step].gradient}>
-          {!isOdd(step) &&
-            (step === FIRST_STEP ? (
+          title={!isOdd(stepNumber) ? steps[stepNumber].title : null}
+          animationStyle={{opacity: opacity.interpolate((o) => 1 - o), transform, zIndex: !isOdd(stepNumber) ? 1 : 0}}
+          gradient={steps[stepNumber].gradient}>
+          {!isOdd(stepNumber) &&
+            (stepNumber === FIRST_STEP ? (
               <Instructions onButtonClick={handleStepChange} />
             ) : (
-              <Form onButtonClick={handleStepChange} question={steps[step]} />
+              <Form onButtonClick={handleStepChange} question={steps[stepNumber]} />
             ))}
         </Card>
+        {/* Odd steps */}
         <Card
-          title={isOdd(step) ? steps[step].title : null}
-          style={{
+          title={isOdd(stepNumber) ? steps[stepNumber].title : null}
+          animationStyle={{
             opacity,
             transform: transform.interpolate((t) => `${t} rotateX(180deg)`),
-            zIndex: isOdd(step) ? 1 : 0
+            zIndex: isOdd(stepNumber) ? 1 : 0
           }}
-          gradient={steps[step].gradient}>
-          {isOdd(step) &&
-            (step === FINAL_STEP ? (
+          gradient={steps[stepNumber].gradient}>
+          {isOdd(stepNumber) &&
+            (stepNumber === FINAL_STEP ? (
               <Sentence onButtonClick={handleStepToStart} />
             ) : (
-              <Form onButtonClick={handleStepChange} question={steps[step]} />
+              <Form onButtonClick={handleStepChange} question={steps[stepNumber]} />
             ))}
         </Card>
       </div>

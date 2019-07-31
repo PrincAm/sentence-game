@@ -1,7 +1,7 @@
 import React from 'react'
 import {css, cx} from 'emotion'
 
-const instructionClass = cx(
+const instructionsClass = cx(
   'Instructions',
   css`
     font-family: 'Oswald', sans-serif;
@@ -10,6 +10,14 @@ const instructionClass = cx(
     justify-content: space-between;
     align-items: center;
     height: 100%;
+  `
+)
+
+const containerClass = cx(
+  'Instructions-container',
+  css`
+    text-align: center;
+    font-size: 23px;
   `
 )
 
@@ -42,8 +50,10 @@ const handleButtonClick = (onButtonClick) => () => {
 }
 
 const Instructions = ({onButtonClick}) => (
-  <div className={instructionClass}>
-    <div>Create your unique sentence by answering a few simple questions: Who? What? When? and Where?</div>
+  <div className={instructionsClass}>
+    <div className={containerClass}>
+      Create your unique sentence by answering a few simple questions: Who? What? When? and Where?
+    </div>
     <button type="button" onClick={handleButtonClick(onButtonClick)} className={buttonClass}>
       Play!
     </button>

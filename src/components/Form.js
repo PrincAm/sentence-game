@@ -98,7 +98,7 @@ const Form = ({onButtonClick, onSaveValue, question}) => {
 
   const validationSchema = Yup.object().shape({
     [question.id]: Yup.string()
-      .max(50, 'Oh, answer is too long!')
+      .max(40, 'Oh, answer is too long!')
       .required('Please, answer the question!')
   })
 

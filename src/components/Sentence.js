@@ -20,7 +20,8 @@ const sentenceClass = cx(
 const resultClass = cx(
   'Sentence-result',
   css`
-    font-size: 36px;
+    text-align: center;
+    font-size: 22px;
   `
 )
 

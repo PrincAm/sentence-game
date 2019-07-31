@@ -3,33 +3,43 @@ import PropTypes from 'prop-types'
 import {css, cx} from 'emotion'
 import {animated} from 'react-spring'
 
-const cardClass = cx(
-  'Card',
-  css`
-    color: #f5f5f5;
-    background: linear-gradient(to right, #1565c0, #b92b27);
-    position: absolute;
-    width: 50%;
-    height: 200px;
-    will-change: transform, opacity;
-  `
-)
+const Card = ({title, gradient, style, children}) => {
+  const cardClass = cx(
+    'Card',
+    css`
+      color: #f5f5f5;
+      background: ${gradient};
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      position: absolute;
+      width: 600px;
+      height: 240px;
+      will-change: transform, opacity;
+      border-radius: 5px;
+      padding: 30px 30px 40px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    `
+  )
 
-const Card = ({style, title, children}) => (
-  <animated.div style={style} className={cardClass}>
-    <h2>{title}</h2>
-    {children}
-  </animated.div>
-)
+  return (
+    <animated.div style={style} className={cardClass}>
+      <h1>{title}</h1>
+      {children}
+    </animated.div>
+  )
+}
 
 export default Card
 
 Card.propTypes = {
   title: PropTypes.string,
+  gradient: PropTypes.string,
   children: PropTypes.node
 }
 
 Card.defaultProps = {
   title: '',
-  children: ''
+  children: '',
+  gradient: '#c0392b;'
 }

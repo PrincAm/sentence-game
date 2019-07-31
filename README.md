@@ -7,6 +7,7 @@ Live demo https://sentencegame.netlify.com
 
 ## Local Development
 
+- `npm install` to install dependencies in the node_modules folder
 - `npm start` to run webpack dev server with hot loading -> localhost:3000
 - `npm test` to execute Jest tests in watch mode
 - `npm run lint` to run eslint

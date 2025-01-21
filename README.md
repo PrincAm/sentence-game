@@ -1,6 +1,6 @@
 # Sentence Game
 
-Live demo https://sentencegame.netlify.com
+Live demo https://sentencegame.netlify.app
 
 This project contains static UI content (html, js, images etc).
 
